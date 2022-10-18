@@ -18,7 +18,7 @@ import BgSignUp from "assets/img/BgSignUp.png";
 import React, {useEffect, useState} from "react";
 import {FaApple, FaFacebook, FaGoogle} from "react-icons/fa";
 import * as dayjs from "dayjs";
-import {useParams} from "react-router-dom";
+import {useHistory, useLocation, useParams} from "react-router-dom";
 
 function Entry() {
     const titleColor = useColorModeValue("mediumseagreen", "teal.200");
@@ -34,12 +34,14 @@ function Entry() {
     const [imagesUrl, setImagesUrl] = useState([]);
     const toast = useToast()
     let { id } = useParams();
-    console.log(id)
+    const history = useHistory();
+    let objectId = location.pathname.split("/")[location.pathname.split("/").length-1]
+
 
     useEffect(()=>{
-        if(id) {
+        if(objectId && objectId.length >=12) {
             async function fetchData() {
-                const response = await fetch(`http://localhost:5000/records/${id}`);
+                const response = await fetch(`http://localhost:5000/nhatky/${objectId}`);
 
                 if (!response.ok) {
                     const message = `An error has occured: ${response.statusText}`;
@@ -59,31 +61,48 @@ function Entry() {
 
             return;
         }
-    }, [id]);
+    }, [objectId]);
 
     const submit = async (e) => {
-
         console.log((JSON.stringify({name, detail, date, user, images})));
         e.preventDefault();
-        await fetch("http://localhost:5000/nhatky/add", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({"title": name, detail, date, images}),
-        }).then((res)=>{
-            toast({
-                      title: 'Thành công.',
-                      description: "Cập nhật nhật ký "+name+" thành công.",
-                      status: 'success',
-                      duration: 3000,
-                      isClosable: true,
-                  })
-        })
-            .catch(error => {
-                window.alert(error);
-                return;
-            });
+        if (!objectId || objectId.length<12) {
+            await fetch("http://localhost:5000/nhatky/add", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({"title": name, detail, date, images}),
+            }).then((res) => {
+                toast({
+                    title: 'Thành công.',
+                    description: "Thêm mới nhật ký " + name + " thành công.",
+                    status: 'success',
+                    duration: 3000,
+                    isClosable: true,
+                });
+                history.push("/")
+            })
+        } else {
+            await fetch("http://localhost:5000/nhatky/update/"+objectId, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({"title": name, detail, date, images}),
+            }).then((res) => {
+                toast({
+                    title: 'Thành công.',
+                    description: "Cập nhật nhật ký " + name + " thành công.",
+                    status: 'success',
+                    duration: 3000,
+                    isClosable: true,
+                })
+                history.push("/")
+
+            })
+        }
+
     }
 
     const handleImages = (e) => {
@@ -183,6 +202,7 @@ function Entry() {
                             placeholder='Nhập chi tiết công việc'
                             mb='24px'
                             size='lg'
+                            value={detail}
                             onChange={(e) => {
                                 setDetail(e.target.value)
                             }}

@@ -38,7 +38,7 @@ export default function HeaderLinks(props) {
   let mainText = useColorModeValue("gray.700", "gray.200");
   let navbarIcon = useColorModeValue("gray.500", "gray.200");
   let searchIcon = useColorModeValue("gray.700", "gray.200");
-
+  let isAuth = localStorage.getItem("auth");
   if (secondary) {
     navbarIcon = "white";
     mainText = "white";
@@ -51,49 +51,49 @@ export default function HeaderLinks(props) {
       alignItems="center"
       flexDirection="row"
     >
-      <InputGroup
-        cursor="pointer"
-        bg={inputBg}
-        borderRadius="15px"
-        w={{
-          sm: "128px",
-          md: "200px",
-        }}
-        me={{ sm: "auto", md: "20px" }}
-        _focus={{
-          borderColor: { mainTeal },
-        }}
-        _active={{
-          borderColor: { mainTeal },
-        }}
-      >
-        <InputLeftElement
-          children={
-            <IconButton
-              bg="inherit"
-              borderRadius="inherit"
-              _hover="none"
-              _active={{
-                bg: "inherit",
-                transform: "none",
-                borderColor: "transparent",
-              }}
-              _focus={{
-                boxShadow: "none",
-              }}
-              icon={<SearchIcon color={searchIcon} w="15px" h="15px" />}
-            ></IconButton>
-          }
-        />
-        <Input
-          fontSize="xs"
-          py="11px"
-          color={mainText}
-          placeholder="Type here..."
-          borderRadius="inherit"
-        />
-      </InputGroup>
-      <NavLink to="/auth/signin">
+      {/*<InputGroup*/}
+      {/*  cursor="pointer"*/}
+      {/*  bg={inputBg}*/}
+      {/*  borderRadius="15px"*/}
+      {/*  w={{*/}
+      {/*    sm: "128px",*/}
+      {/*    md: "200px",*/}
+      {/*  }}*/}
+      {/*  me={{ sm: "auto", md: "20px" }}*/}
+      {/*  _focus={{*/}
+      {/*    borderColor: { mainTeal },*/}
+      {/*  }}*/}
+      {/*  _active={{*/}
+      {/*    borderColor: { mainTeal },*/}
+      {/*  }}*/}
+      {/*>*/}
+      {/*  <InputLeftElement*/}
+      {/*    children={*/}
+      {/*      <IconButton*/}
+      {/*        bg="inherit"*/}
+      {/*        borderRadius="inherit"*/}
+      {/*        _hover="none"*/}
+      {/*        _active={{*/}
+      {/*          bg: "inherit",*/}
+      {/*          transform: "none",*/}
+      {/*          borderColor: "transparent",*/}
+      {/*        }}*/}
+      {/*        _focus={{*/}
+      {/*          boxShadow: "none",*/}
+      {/*        }}*/}
+      {/*        icon={<SearchIcon color={searchIcon} w="15px" h="15px" />}*/}
+      {/*      ></IconButton>*/}
+      {/*    }*/}
+      {/*  />*/}
+      {/*  <Input*/}
+      {/*    fontSize="xs"*/}
+      {/*    py="11px"*/}
+      {/*    color={mainText}*/}
+      {/*    placeholder="Type here..."*/}
+      {/*    borderRadius="inherit"*/}
+      {/*  />*/}
+      {/*</InputGroup>*/}
+      {!isAuth && <NavLink to="/auth/signin">
         <Button
           ms="0px"
           px="0px"
@@ -117,7 +117,7 @@ export default function HeaderLinks(props) {
         >
           <Text display={{ sm: "none", md: "flex" }}>Sign In</Text>
         </Button>
-      </NavLink>
+      </NavLink>}
       <SidebarResponsive
         logoText={props.logoText}
         secondary={props.secondary}
@@ -125,16 +125,16 @@ export default function HeaderLinks(props) {
         // logo={logo}
         {...rest}
       />
-      <SettingsIcon
-        cursor="pointer"
-        ms={{ base: "16px", xl: "0px" }}
-        me="16px"
-        ref={settingsRef}
-        onClick={props.onOpen}
-        color={navbarIcon}
-        w="18px"
-        h="18px"
-      />
+      {/*<SettingsIcon*/}
+      {/*  cursor="pointer"*/}
+      {/*  ms={{ base: "16px", xl: "0px" }}*/}
+      {/*  me="16px"*/}
+      {/*  ref={settingsRef}*/}
+      {/*  onClick={props.onOpen}*/}
+      {/*  color={navbarIcon}*/}
+      {/*  w="18px"*/}
+      {/*  h="18px"*/}
+      {/*/>*/}
       <Menu>
         <MenuButton>
           <BellIcon color={navbarIcon} w="18px" h="18px" />
@@ -144,8 +144,8 @@ export default function HeaderLinks(props) {
             <MenuItem borderRadius="8px" mb="10px">
               <ItemContent
                 time="13 minutes ago"
-                info="from Alicia"
-                boldInfo="New Message"
+                info="vừa có lượt xem"
+                boldInfo="Tin nhắn mới"
                 aName="Alicia"
                 aSrc={avatar1}
               />
@@ -153,19 +153,10 @@ export default function HeaderLinks(props) {
             <MenuItem borderRadius="8px" mb="10px">
               <ItemContent
                 time="2 days ago"
-                info="by Josh Henry"
-                boldInfo="New Album"
+                info="vừa có lượt xem"
+                boldInfo="Tin nhắn mới"
                 aName="Josh Henry"
                 aSrc={avatar2}
-              />
-            </MenuItem>
-            <MenuItem borderRadius="8px">
-              <ItemContent
-                time="3 days ago"
-                info="Payment succesfully completed!"
-                boldInfo=""
-                aName="Kara"
-                aSrc={avatar3}
               />
             </MenuItem>
           </Flex>

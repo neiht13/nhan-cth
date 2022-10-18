@@ -1,5 +1,5 @@
 // Chakra imports
-import { ChakraProvider, Portal, useDisclosure } from '@chakra-ui/react';
+import {Box, Button, ChakraProvider, Portal, useDisclosure} from '@chakra-ui/react';
 import Configurator from 'components/Configurator/Configurator';
 import Footer from 'components/Footer/Footer.js';
 // Layout components
@@ -18,11 +18,18 @@ import FixedPlugin from '../components/FixedPlugin/FixedPlugin';
 import MainPanel from '../components/Layout/MainPanel';
 import PanelContainer from '../components/Layout/PanelContainer';
 import PanelContent from '../components/Layout/PanelContent';
+import {ArrowUpIcon} from "@chakra-ui/icons";
 export default function Dashboard(props) {
 	const { ...rest } = props;
 	// states and functions
 	const [ sidebarVariant, setSidebarVariant ] = useState('transparent');
 	const [ fixed, setFixed ] = useState(false);
+	const scrollToTop = () => {
+		window.scrollTo({
+			top: 0,
+			behavior: 'smooth',
+		});
+	};
 	// functions for changing the states from components
 	const getRoute = () => {
 		return window.location.pathname !== '/admin/full-screen-maps';
@@ -89,7 +96,7 @@ export default function Dashboard(props) {
 		<ChakraProvider theme={theme} resetCss={false}>
 			<Sidebar
 				routes={routes}
-				logoText={'PURITY UI DASHBOARD'}
+				logoText={'NHÃN CHÂU THÀNH'}
 				display='none'
 				sidebarVariant={sidebarVariant}
 				{...rest}
@@ -102,7 +109,7 @@ export default function Dashboard(props) {
 				<Portal>
 					<AdminNavbar
 						onOpen={onOpen}
-						logoText={'PURITY UI DASHBOARD'}
+						logoText={'NHÃN CHÂU THÀNH'}
 						brandText={getActiveRoute(routes)}
 						secondary={getActiveNavbar(routes)}
 						fixed={fixed}
@@ -121,19 +128,32 @@ export default function Dashboard(props) {
 				) : null}
 				<Footer />
 				<Portal>
-					<FixedPlugin secondary={getActiveNavbar(routes)} fixed={fixed} onOpen={onOpen} />
+					{/*<FixedPlugin secondary={getActiveNavbar(routes)} fixed={fixed} onOpen={onOpen} />*/}
+					<Box
+						onClick={scrollToTop}
+						position='fixed'
+						bottom='20px'
+						right={['16px', '84px']}
+						zIndex={3}>
+						<Button
+							size={'sm'}
+							color='mediumseagreen'
+							variant='solid'>
+							<ArrowUpIcon />
+						</Button>
+					</Box>
 				</Portal>
-				<Configurator
-					secondary={getActiveNavbar(routes)}
-					isOpen={isOpen}
-					onClose={onClose}
-					isChecked={fixed}
-					onSwitch={(value) => {
-						setFixed(value);
-					}}
-					onOpaque={() => setSidebarVariant('opaque')}
-					onTransparent={() => setSidebarVariant('transparent')}
-				/>
+				{/*<Configurator*/}
+				{/*	secondary={getActiveNavbar(routes)}*/}
+				{/*	isOpen={isOpen}*/}
+				{/*	onClose={onClose}*/}
+				{/*	isChecked={fixed}*/}
+				{/*	onSwitch={(value) => {*/}
+				{/*		setFixed(value);*/}
+				{/*	}}*/}
+				{/*	onOpaque={() => setSidebarVariant('opaque')}*/}
+				{/*	onTransparent={() => setSidebarVariant('transparent')}*/}
+				{/*/>*/}
 			</MainPanel>
 		</ChakraProvider>
 	);

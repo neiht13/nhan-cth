@@ -46,10 +46,8 @@ const Projects = ({ title, captions, data }) => {
                 <TablesProjectRow
                   key={row.name}
                   name={row.name}
-                  logo={row.logo}
+                  role={row.role}
                   status={row.status}
-                  budget={row.budget}
-                  progression={row.progression}
                 />
               );
             })}

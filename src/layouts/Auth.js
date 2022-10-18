@@ -4,13 +4,14 @@ import Footer from 'components/Footer/Footer.js';
 // core components
 import AuthNavbar from 'components/Navbars/AuthNavbar.js';
 import React from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch, HashRouter } from 'react-router-dom';
 import routes from 'routes.js';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import theme from 'theme/theme.js';
 import Entry from "../views/Auth/Entry";
+import Dashboard from "../views/Dashboard/Dashboard";
 
 export default function Pages(props) {
 	const { ...rest } = props;
@@ -81,14 +82,15 @@ export default function Pages(props) {
 		<ChakraProvider theme={theme} resetCss={false} w='100%'>
 			<Box ref={navRef} w='100%'>
 				<Portal containerRef={navRef}>
-					<AuthNavbar secondary={getActiveNavbar(routes)} logoText='PURITY UI DASHBOARD' />
+					<AuthNavbar secondary={getActiveNavbar(routes)} logoText='NHÃN CHÂU THÀNH' />
 				</Portal>
 				<Box w='100%'>
 					<Box ref={wrapper} w='100%'>
+
 						<Switch>
 							{getRoutes(routes)}
-							<Route path='/auth/entry/:id' component={Entry}/>;
-							<Redirect from='/auth' to='/auth/login-page' />
+							<Route path='/auth/dashboard/:id' component={Dashboard}/>;
+							<Redirect from='/auth' to='/auth/signin' />
 						</Switch>
 					</Box>
 				</Box>

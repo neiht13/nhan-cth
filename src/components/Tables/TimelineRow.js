@@ -3,7 +3,7 @@ import {
     Flex,
     Icon,
     Image,
-    Img, Kbd, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader,
+    Img, Kbd, Link, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader,
     ModalOverlay, ScaleFade, Spacer,
     Stack,
     Text,
@@ -14,7 +14,7 @@ import React, {useEffect, useState} from "react";
 import {WalletIcon} from "../Icons/Icons";
 import MiniStatistics from "../../views/Dashboard/Dashboard/components/MiniStatistics";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {Link} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 
 
 function TimelineRow(props) {
@@ -23,13 +23,16 @@ function TimelineRow(props) {
     const bgIconColor = useColorModeValue("white.300", "gray.700");
     const {isOpen, onOpen, onClose} = useDisclosure()
     const [imageSelect, setImageSelect] = useState()
+    const history = useHistory();
+
     const decodeImage = (img) => {
         return `data:image/jpeg;base64,${btoa(img)}`
     }
     return (
-        <Flex alignItems="center" minH="66px" justifyContent="start" margin="4px">
+        <Flex alignItems="center" minH="66px" justifyContent="start" margin="4px" color='mediumseagreen' >
             <Box width="20px" height="20px">
                 <i className="fa fa-heart"></i>
+
             </Box>
             <Flex direction="column" justifyContent="center" h="100%" w="100%">
                 <Flex  mb="3px" w="100%"
@@ -38,9 +41,7 @@ function TimelineRow(props) {
                       <Kbd>{date}</Kbd>
                     </span>
                     <Spacer />
-                    <Link to={"/auth/entry/" + objectId}>
-                    <i className="fa-solid fa-pencil"></i>
-                    </Link>
+                    {/*<i className="fa-solid fa-pencil" onClick={event =>  history.push("/auth/entry/" + objectId)}></i>*/}
 
                 </Flex>
                 <Flex padding="10px"  borderRadius="5px" width="100%"

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 // Chakra imports
 import {
   Box,
@@ -8,18 +8,58 @@ import {
   FormLabel,
   Heading,
   Input,
-  Link,
   Switch,
   Text,
-  useColorModeValue,
+  useColorModeValue, toast, useToast,
 } from "@chakra-ui/react";
 // Assets
 import signInImage from "assets/img/signInImage.png";
+import {Link, useHistory} from "react-router-dom";
 
 function SignIn() {
   // Chakra color mode
   const titleColor = useColorModeValue("mediumseagreen", "teal.200");
   const textColor = useColorModeValue("gray.400", "white");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const toast = useToast()
+  const history = useHistory()
+
+  async function submitLogin() {
+    await fetch("http://localhost:5000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({username, password}),
+    }).then((res)=>{
+      res.json().then(r=>{
+          if(r.length>0){
+          localStorage.setItem("auth", r[0].username)
+          localStorage.setItem("userRole", r[0].role)
+          localStorage.setItem("htxId", r[0].htxId)
+            toast({
+              title: 'Thành công.',
+              description: "Đăng nhập thành công.",
+              status: 'success',
+              duration: 1000,
+              isClosable: true,
+            })
+            history.push("/");
+          }
+          else{
+            toast({
+            title: 'Thất bại.',
+            description: "Đăng nhập thất bại.",
+            status: 'error',
+            duration: 3000,
+            isClosable: true,
+          })
+          }
+      });
+    })
+  }
+
   return (
     <Flex position='relative' mb='40px'>
       <Flex
@@ -42,7 +82,7 @@ function SignIn() {
             p='48px'
             mt={{ md: "150px", lg: "80px" }}>
             <Heading color={titleColor} fontSize='32px' mb='10px'>
-              Welcome Back
+              Đăng nhập
             </Heading>
             <Text
               mb='36px'
@@ -50,42 +90,35 @@ function SignIn() {
               color={textColor}
               fontWeight='bold'
               fontSize='14px'>
-              Enter your email and password to sign in
+              Nhập tài khoản và mật khẩu để đăng nhập
             </Text>
             <FormControl>
               <FormLabel ms='4px' fontSize='sm' fontWeight='normal'>
-                Email
+                Tài khoản
               </FormLabel>
               <Input
                 borderRadius='15px'
                 mb='24px'
                 fontSize='sm'
                 type='text'
-                placeholder='Your email adress'
                 size='lg'
+                value={username}
+                onChange={e=>setUsername(e.target.value)}
                 borderColor="mediumseagreen"
               />
               <FormLabel ms='4px' fontSize='sm' fontWeight='normal'>
-                Password
+                Mật khẩu
               </FormLabel>
               <Input
                 borderRadius='15px'
                 mb='36px'
                 fontSize='sm'
                 type='password'
-                placeholder='Your password'
+                value={password}
+                onChange={e=>setPassword(e.target.value)}
+                placeholder='********'
                 size='lg'
               />
-              <FormControl display='flex' alignItems='center'>
-                <Switch id='remember-login' colorScheme='teal' me='10px' />
-                <FormLabel
-                  htmlFor='remember-login'
-                  mb='0'
-                  ms='1'
-                  fontWeight='normal'>
-                  Remember me
-                </FormLabel>
-              </FormControl>
               <Button
                 fontSize='10px'
                 type='submit'
@@ -101,9 +134,10 @@ function SignIn() {
                 _active={{
                   bg: "teal.400",
                 }}
+                onClick={submitLogin}
 
               >
-                SIGN IN
+                Đăng nhập
               </Button>
             </FormControl>
             <Flex
@@ -113,9 +147,11 @@ function SignIn() {
               maxW='100%'
               mt='0px'>
               <Text color={textColor} fontWeight='medium'>
-                Don't have an account?
-                <Link color={titleColor} as='span' ms='5px' fontWeight='bold'>
-                  Sign Up
+                Chưa có tài khoản?
+                <Link to={"/auth/signup"}>
+                <Text color={titleColor} as='span' ms='5px' fontWeight='bold'>
+                  Đăng ký
+                </Text>
                 </Link>
               </Text>
             </Flex>

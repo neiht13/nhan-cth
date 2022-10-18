@@ -11,6 +11,7 @@ import {
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import AdminNavbarLinks from "./AdminNavbarLinks";
+import {HomeIcon} from "../Icons/Icons";
 
 export default function AdminNavbar(props) {
   const [scrolled, setScrolled] = useState(false);
@@ -115,8 +116,8 @@ export default function AdminNavbar(props) {
         <Box mb={{ sm: "8px", md: "0px" }}>
           <Breadcrumb>
             <BreadcrumbItem color={mainText}>
-              <BreadcrumbLink href="#" color={secondaryText}>
-                Pages
+              <BreadcrumbLink href="/" color={secondaryText}>
+                <HomeIcon/>
               </BreadcrumbLink>
             </BreadcrumbItem>
 
