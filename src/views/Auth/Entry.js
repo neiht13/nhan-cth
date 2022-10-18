@@ -41,7 +41,7 @@ function Entry() {
     useEffect(()=>{
         if(objectId && objectId.length >=12) {
             async function fetchData() {
-                const response = await fetch(`http://localhost:5000/nhatky/${objectId}`);
+                const response = await fetch(`https://karaserver.onrender.com/nhatky/${objectId}`);
 
                 if (!response.ok) {
                     const message = `An error has occured: ${response.statusText}`;
@@ -67,7 +67,7 @@ function Entry() {
         console.log((JSON.stringify({name, detail, date, user, images})));
         e.preventDefault();
         if (!objectId || objectId.length<12) {
-            await fetch("http://localhost:5000/nhatky/add", {
+            await fetch("https://karaserver.onrender.com/nhatky/add", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -84,7 +84,7 @@ function Entry() {
                 history.push("/")
             })
         } else {
-            await fetch("http://localhost:5000/nhatky/update/"+objectId, {
+            await fetch("https://karaserver.onrender.com/nhatky/update/"+objectId, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

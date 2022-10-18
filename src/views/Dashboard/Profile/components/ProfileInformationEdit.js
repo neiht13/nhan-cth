@@ -32,7 +32,7 @@ const ProfileInformation = () => {
         alert(JSON.stringify({cososx,tomtat,name,ngaythuhoach,hansudung,sxquytrinh,donggoi}))
     }
     async function getInfo() {
-        const response = await fetch(`http://localhost:5000/chungnhan/`,{
+        const response = await fetch(`https://karaserver.onrender.com/chungnhan/`,{
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -53,7 +53,7 @@ const ProfileInformation = () => {
     }
     const submit = async (e) => {
         e.preventDefault();
-            await fetch("http://localhost:5000/chungnhan/update/"+id, {
+            await fetch("https://karaserver.onrender.com/chungnhan/update/"+id, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

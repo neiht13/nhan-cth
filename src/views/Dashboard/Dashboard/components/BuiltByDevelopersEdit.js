@@ -32,7 +32,7 @@ const BuiltByDevelopers = ({title, description, image}) => {
         alert(JSON.stringify({cososx,tomtat,name,ngaythuhoach,hansudung,sxquytrinh,donggoi}))
     }
     async function getInfo() {
-        const response = await fetch(`http://localhost:5000/info/`,{
+        const response = await fetch(`https://karaserver.onrender.com/info/`,{
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

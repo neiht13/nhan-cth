@@ -49,7 +49,7 @@ export default function Dashboard() {
       return;
   }, [nhatky.length]);
     async function getNhatky() {
-        const response = await fetch(`http://localhost:5000/nhatky/`);
+        const response = await fetch(`https://karaserver.onrender.com/nhatky/`);
         if (!response.ok) {
             const message = `An error occured: ${response.statusText}`;
             window.alert(message);
@@ -59,12 +59,12 @@ export default function Dashboard() {
             setNhatky(records);
     }
     async function getChungnhan() {
-        const response = await fetch(`http://localhost:5000/chungnhan/${chungnhanId}`);
+        const response = await fetch(`https://karaserver.onrender.com/chungnhan/${chungnhanId}`);
         const records = await response.json();
             setChungnhan(records);
     }
     async function getInfo() {
-        const response = await fetch(`http://localhost:5000/info/${htxId}`);
+        const response = await fetch(`https://karaserver.onrender.com/info/${htxId}`);
         const records = await response.json();
             setInfo(records);
             setChungnhanId(records.chungnhanId)

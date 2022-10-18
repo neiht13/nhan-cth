@@ -29,7 +29,7 @@ function Tables() {
     }, []);
 
     async function getHtx() {
-        const response = await fetch(`http://localhost:5000/htx/`);
+        const response = await fetch(`https://karaserver.onrender.com/htx/`);
         if (!response.ok) {
             const message = `An error occured: ${response.statusText}`;
             window.alert(message);
@@ -39,7 +39,7 @@ function Tables() {
         setHtx(records);
     }
     async function getNhatky() {
-        const response = await fetch(`http://localhost:5000/nhatky/`);
+        const response = await fetch(`https://karaserver.onrender.com/nhatky/`);
         if (!response.ok) {
             const message = `An error occured: ${response.statusText}`;
             window.alert(message);
@@ -50,7 +50,7 @@ function Tables() {
     }
 
     async function getChungnhan() {
-        const response = await fetch(`http://localhost:5000/chungnhan/`, {
+        const response = await fetch(`https://karaserver.onrender.com/chungnhan/`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -67,7 +67,7 @@ function Tables() {
     }
 
     async function getInfo() {
-        const response = await fetch(`http://localhost:5000/info/`, {
+        const response = await fetch(`https://karaserver.onrender.com/info/`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
