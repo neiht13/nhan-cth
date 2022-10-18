@@ -93,7 +93,7 @@ export default function HeaderLinks(props) {
       {/*    borderRadius="inherit"*/}
       {/*  />*/}
       {/*</InputGroup>*/}
-      {!isAuth && <NavLink to="/auth/signin">
+      <NavLink to="/auth/signin">
         <Button
           ms="0px"
           px="0px"
@@ -115,9 +115,9 @@ export default function HeaderLinks(props) {
             )
           }
         >
-          <Text display={{ sm: "none", md: "flex" }}>Sign In</Text>
+          <Text display={{ sm: "none", md: "flex" }}>Thoát</Text>
         </Button>
-      </NavLink>}
+      </NavLink>
       <SidebarResponsive
         logoText={props.logoText}
         secondary={props.secondary}

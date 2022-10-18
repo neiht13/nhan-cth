@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 // Chakra imports
 import {
   Box,
@@ -24,6 +24,12 @@ function SignIn() {
   const [password, setPassword] = useState("");
   const toast = useToast()
   const history = useHistory()
+  useEffect(() => {
+    localStorage.removeItem("auth")
+    localStorage.removeItem("userRole")
+    localStorage.removeItem("htxId")
+  }, []);
+
 
   async function submitLogin() {
     await fetch("https://karaserver.onrender.com/login", {
